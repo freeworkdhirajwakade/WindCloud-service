@@ -1,0 +1,18 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: LOTTERY-SERVICE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lottery-db?createDatabaseIfNotExist=true
+    username: root
+    password: root@7072
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
