@@ -13,4 +13,7 @@ public class CommanConstants
 	//Response Message
 	public final static String MSG_SUCCESS_SAVE="Successfully Saved";
 	public final static String MSG_FAIED="Failed...Try again";
+	public final static String EMAIL_EMPTY="Email Id should Not be Empty";
+	public final static String USER_ALREADY_EXIST="User Already Exist";
+	public static final String LOGIN_SUCCESS = "Successfully Login";
 }

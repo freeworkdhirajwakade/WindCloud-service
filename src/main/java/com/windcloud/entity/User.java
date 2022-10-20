@@ -41,7 +41,7 @@ public class User {
 	@Column(name = "PASSWORD")
 	private String password;
 	
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL",unique = true)
 	private String email;
 	
 	@Column(name = "GENDER")

@@ -25,13 +25,51 @@ public class UserServiceImpl implements UserService {
 	public ResponseEntity<Response>signupUser(UserDTO userDto)
 	{
 		Response response=new Response<User>();
-		User user=modelMapper.map(userDto,User.class);
-		user.setStatus(CommanConstants.CRAETED);
-		user=userRepository.save(user);
-		response.setResults(user);
-		response.setStatus(CommanConstants.SUCCESS);
-		response.setMessage(CommanConstants.MSG_SUCCESS_SAVE);
-		return new ResponseEntity<>(response,HttpStatus.OK);
+		
+		
+		if(userDto.getEmail().equals("")|| userDto.getEmail()==null)
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_EMPTY);
+			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		}
+		
+		User userexist=userRepository.findbyEmailId(userDto.getEmail());
+		if(userexist!=null)
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.USER_ALREADY_EXIST);
+			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		}
+		try
+		{
+			User user=modelMapper.map(userDto,User.class);
+			user.setStatus(CommanConstants.CRAETED);
+			user=userRepository.save(user);
+			response.setData(user);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.MSG_SUCCESS_SAVE);
+			return new ResponseEntity<>(response,HttpStatus.OK);
+		}
+		catch (Exception e) {
+			response.setData(null);
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.MSG_FAIED);
+			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public ResponseEntity<Response> signInUser(UserDTO userDto) 
+	{
+		
+		return null;
+	}
+	
+	public User findbyEmailId(String user)
+	{
+		return userRepository.findbyEmailId(user);
 	}
 		
 

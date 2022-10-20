@@ -1,28 +1,20 @@
 package com.windcloud.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Response<T> {
 	
-	private T results;
+	private T data;
 	private Integer status;
 	private String message;
-	public T getResults() {
-		return results;
-	}
-	public void setResults(T results) {
-		this.results = results;
-	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
+	private String token;
+		
 
 }
