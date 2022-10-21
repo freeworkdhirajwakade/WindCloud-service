@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.windcloud.config.Response;
 import com.windcloud.constants.CommanConstants;
 
+import io.jsonwebtoken.SignatureException;
+
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 
@@ -22,6 +24,18 @@ public class ExceptionHandlerControllerAdvice {
 
 		Response<?>error=new Response<>();
 		error.setMessage(exception.getMessage());
+		error.setStatus(CommanConstants.FAILED);
+
+		return error;
+	}
+	@SuppressWarnings("rawtypes")
+	@ExceptionHandler(SignatureException.class)
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+	public @ResponseBody Response handleInvalidToken(final SignatureException exception,
+			final HttpServletRequest request) {
+
+		Response<?>error=new Response<>();
+		error.setMessage(CommanConstants.INVALID_TOKEN);
 		error.setStatus(CommanConstants.FAILED);
 
 		return error;

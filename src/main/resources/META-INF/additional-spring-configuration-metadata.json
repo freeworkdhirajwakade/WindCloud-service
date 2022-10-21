@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "jwt",
-  "type": "java.lang.String",
-  "description": "A description for 'jwt'"
-}]}
+{"properties": [
+  {
+    "name": "jwt",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt'"
+  },
+  {
+    "name": "windcloud.mail.subject",
+    "type": "java.lang.String",
+    "description": "A description for 'windcloud.mail.subject'"
+  },
+  {
+    "name": "windcloud.mail.from",
+    "type": "java.lang.String",
+    "description": "A description for 'windcloud.mail.from'"
+  }
+]}

@@ -16,4 +16,11 @@ public class CommanConstants
 	public final static String EMAIL_EMPTY="Email Id should Not be Empty";
 	public final static String USER_ALREADY_EXIST="User Already Exist";
 	public static final String LOGIN_SUCCESS = "Successfully Login";
+	public static final String MAIL_FROM = "dhirajwakade@gmail.com";
+	public static final String MAIL_SUBJECT = "WindAndCloud Register OTP";
+	public static final String OTP_SEND_SUCCESS = "OTP send successfully";
+	public static final String INVALID_TOKEN = "Invalid Token";
+	public static final String FORGOT_PASS_MSG = "Link has been sent on email. Please check mail,";
+	public static final String EMAIL_ID_NOT_EXIST = "EMail Id is not Exist";
+	public static final String SUCCESS_FORGOTTED = "Successfully Forgotted  Password";
 }

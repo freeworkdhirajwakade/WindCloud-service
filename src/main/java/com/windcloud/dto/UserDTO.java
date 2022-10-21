@@ -1,6 +1,10 @@
 package com.windcloud.dto;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.windcloud.entity.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,4 +40,6 @@ public class UserDTO
     private LocalDateTime createDateTime;
  
     private LocalDateTime updateDateTime;
+    
+    private Set<Roles> roles = new HashSet<>();
 }

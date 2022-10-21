@@ -1,7 +1,5 @@
 package com.windcloud.jwt;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +22,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		{
 			throw new UsernameNotFoundException("User not found");
 		}
-		return new User(username,user.getPassword(),new ArrayList<>());
+		return new User(username,user.getPassword(),user.getAuthorities());
 			
 	}
 }

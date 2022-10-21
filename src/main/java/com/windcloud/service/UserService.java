@@ -8,10 +8,10 @@ import com.windcloud.entity.User;
 
 public interface UserService {
 	
-	@SuppressWarnings("rawtypes")
 	public ResponseEntity<Response>signupUser(UserDTO userDto);
-	@SuppressWarnings("rawtypes")
-	public ResponseEntity<Response>signInUser(UserDTO userDto);
 	public User findbyEmailId(String username);
+	public ResponseEntity<Response> signin(UserDTO authenticationRequest) throws Exception;
+	public ResponseEntity<Response> forgotPassword(String emailId ) throws Exception;
+	public ResponseEntity<?> updatePassword(String email, String confirmPassword);
 
 }
