@@ -71,7 +71,7 @@ public class RestController {
 	@RequestMapping(value = "/updatePassword/{token}", method = RequestMethod.POST)
 	public ResponseEntity<?> updatePassword(@RequestBody ForgotPasswordDTO forgotpass,@PathVariable String token) throws Exception 
 	{
-		return userService.updatePassword(forgotpass.getEmail(),forgotpass.getConfirmPassword());
+		return userService.updatePassword(forgotpass.getEmail(),forgotpass.getConfirmPassword(),token);
 	}
 	
 }

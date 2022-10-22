@@ -20,7 +20,9 @@ public class CommanConstants
 	public static final String MAIL_SUBJECT = "WindAndCloud Register OTP";
 	public static final String OTP_SEND_SUCCESS = "OTP send successfully";
 	public static final String INVALID_TOKEN = "Invalid Token";
-	public static final String FORGOT_PASS_MSG = "Link has been sent on email. Please check mail,";
-	public static final String EMAIL_ID_NOT_EXIST = "EMail Id is not Exist";
-	public static final String SUCCESS_FORGOTTED = "Successfully Forgotted  Password";
+	public static final String FORGOT_PASS_MSG = "Link has been sent on email. Please check Email,";
+	public static final String EMAIL_ID_NOT_EXIST = "Email Id is not Exist";
+	public static final String SUCCESS_FORGOTTED = "Successfully Forgoted  Password";
+	public static final String INVALID_URL = "Invalid URL";
+	public static final String FORGOT_PASS_LINK_EXPIRED = "Forgot Password Link has Expired";
 }

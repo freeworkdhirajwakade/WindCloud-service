@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  http.csrf()
           .disable()
           .authorizeRequests()
-          .antMatchers("/rest/**","/home/**")
+          .antMatchers("/rest/**","/home/**","/")
           .permitAll().anyRequest()
           .authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		  

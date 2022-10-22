@@ -43,7 +43,6 @@ public class OneTimePassword {
 	private LocalDateTime createTime;
 	
 	@Column(name = "EXP_DT_TM", updatable = false)
-	@CreationTimestamp
 	private LocalDateTime expirationTime;
 	
 

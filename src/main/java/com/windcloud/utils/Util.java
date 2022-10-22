@@ -1,13 +1,13 @@
 package com.windcloud.utils;
 
-import com.windcloud.entity.User;
-
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Collection;
+import java.util.Random;
+
+import com.windcloud.entity.User;
 
 public class Util {
 	
@@ -41,13 +41,29 @@ public class Util {
     }
 	
 	@SuppressWarnings("unused")
-	private String encodeValue(String value) throws UnsupportedEncodingException {
-	    return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+	public static String encodeValue(String value) throws UnsupportedEncodingException {
+		Base64.Encoder encoder = Base64.getEncoder();  
+		return encoder.encodeToString(value.getBytes());  
+	   
 	}
 	
 	@SuppressWarnings("unused")
-	private String decode(String value) throws UnsupportedEncodingException {
-	    return URLDecoder.decode(value, StandardCharsets.UTF_8.toString());
+	public static String decode(String value) throws UnsupportedEncodingException {
+		 Base64.Decoder decoder = Base64.getDecoder();  
+	    return new String(decoder.decode(value));    
 	}
-
+	
+	public static LocalDateTime nextMinute(Integer min) {
+		return LocalDateTime.now().plusMinutes(min);
+	}
+	public static String generateSixDigitOTP() {
+	    Random rnd = new Random();
+	    int number = rnd.nextInt(999999);
+	    return String.format("%06d",number);
+	}
+	public static String generateFourDigitOTP() {
+	    Random rnd = new Random();
+	    int number = rnd.nextInt(9999);
+	    return String.format("%04d",number);
+	}
 }

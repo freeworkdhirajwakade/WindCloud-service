@@ -41,5 +41,9 @@ public class UserDTO
  
     private LocalDateTime updateDateTime;
     
+	private Boolean isMailVerified;
+	
+	private Boolean isPhoneVerified;
+    
     private Set<Roles> roles = new HashSet<>();
 }

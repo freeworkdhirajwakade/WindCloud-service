@@ -12,6 +12,6 @@ public interface UserService {
 	public User findbyEmailId(String username);
 	public ResponseEntity<Response> signin(UserDTO authenticationRequest) throws Exception;
 	public ResponseEntity<Response> forgotPassword(String emailId ) throws Exception;
-	public ResponseEntity<?> updatePassword(String email, String confirmPassword);
+	ResponseEntity<?> updatePassword(String email, String confirmPassword, String token);
 
 }

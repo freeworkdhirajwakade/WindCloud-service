@@ -21,7 +21,9 @@ import com.windcloud.mail.MailService;
 import com.windcloud.repository.RolesRepository;
 import com.windcloud.repository.UserRepository;
 import com.windcloud.service.UserService;
+import com.windcloud.utils.Util;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 import org.modelmapper.ModelMapper;
@@ -135,7 +137,7 @@ public class UserServiceImpl implements UserService {
 		}
 		else
 		{
-			//mailService.
+			mailService.sendForgotPasswordLink(emailId);
 			response.setStatus(CommanConstants.SUCCESS);
 			response.setMessage(CommanConstants.FORGOT_PASS_MSG);
 			return ResponseEntity.ok(response);
@@ -146,16 +148,38 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<?> updatePassword(String email, String confirmPassword) {
+	public ResponseEntity<?> updatePassword(String email, String confirmPassword,String token) {
 		Response<User> response = new Response<>();
 		try 
 		{
-			User user = findbyEmailId(email);
-			user.setPassword(confirmPassword);
-			userRepository.saveAndFlush(user);
-			response.setStatus(CommanConstants.SUCCESS);
-			response.setMessage(CommanConstants.SUCCESS_FORGOTTED);
-			return ResponseEntity.ok(response);
+			if(token==null)
+			{
+				response.setStatus(CommanConstants.FAILED);
+				response.setMessage(CommanConstants.INVALID_URL);
+				return ResponseEntity.ok(response);
+			}
+			else
+			{
+				String tokenExpTime=Util.decode(token);
+				System.out.println("TOKEN DATE="+tokenExpTime);
+				LocalDateTime pastDate = LocalDateTime.parse(tokenExpTime);
+				boolean isBefore = LocalDateTime.now().isBefore(pastDate);
+				if(isBefore)
+				{
+					User user = findbyEmailId(email);
+					user.setPassword(confirmPassword);
+					userRepository.saveAndFlush(user);
+					response.setStatus(CommanConstants.SUCCESS);
+					response.setMessage(CommanConstants.SUCCESS_FORGOTTED);
+					return ResponseEntity.ok(response);
+				}
+				else
+				{
+					response.setStatus(CommanConstants.FAILED);
+					response.setMessage(CommanConstants.FORGOT_PASS_LINK_EXPIRED);
+					return ResponseEntity.ok(response);
+				}
+			}
 		}
 		catch (Exception e) {
 			response.setStatus(CommanConstants.FAILED);

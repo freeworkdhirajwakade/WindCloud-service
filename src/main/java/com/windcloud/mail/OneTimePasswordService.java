@@ -12,11 +12,6 @@ public class OneTimePasswordService {
 	@Autowired
 	private MailService mailService;
 	
-	public String sendOTP(String mailId)
-	{
-		return mailService.registerOtpEmail(mailId);
-	}
-	
 	public OneTimePassword saveOrUpdateOTP(OneTimePassword otpnew)
 	{
 		OneTimePassword existingotp = oneTimePasswordRepository.findByEmail(otpnew.getEmailId());

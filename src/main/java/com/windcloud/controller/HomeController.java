@@ -7,17 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/home")
 public class HomeController 
 {
 	
-    @GetMapping("/forgot_password")
+    @GetMapping("/home/forgot_password")
     public String showForgotPasswordForm() 
     {
     	 return "forgotpassword"; 
     }
+    @GetMapping("/")
+    public String home() 
+    {
+    	 return "home"; 
+    }
     
-    @GetMapping("/setPassword/{email}/{token}")
+    @GetMapping("/home/setPassword/{email}/{token}")
     public ModelAndView updatePassword(@PathVariable String email,@PathVariable String token)
     {
     	ModelAndView modelAndView = new ModelAndView("setPassword");
@@ -25,7 +29,5 @@ public class HomeController
         modelAndView.addObject("token",token);
         return modelAndView;
     }
-    
-    
 
 }

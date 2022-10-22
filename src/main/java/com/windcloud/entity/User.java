@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -73,6 +74,12 @@ public class User implements UserDetails{
 	@Column(name = "STATUS")
 	private String status;
 	
+	@Column(name = "IS_MAIL_VERIFIED")
+	private Boolean isMailVerified;
+	
+	@Column(name = "IS_PHONE_VERIFIED")
+	private Boolean isPhoneVerified;
+	
 	@CreationTimestamp
     private LocalDateTime createDateTime;
  
@@ -124,6 +131,19 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@PrePersist
+	public void prePersist()
+	{
+	    if (getIsMailVerified() == null )
+	    {
+	    	setIsMailVerified(false);
+	    }
+	    if (getIsPhoneVerified() == null )
+	    {
+	    	setIsPhoneVerified(false);
+	    }
 	}
 	
 }
