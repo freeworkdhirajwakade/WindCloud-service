@@ -25,6 +25,7 @@ import com.windcloud.utils.Util;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
 				});
 			}
 			user.setRoles(roles);
-			user.setPassword(Util.encodeValue(user.getPassword()));
+			user.setPassword(user.getPassword());
 			user = userRepository.save(user);
 			response.setData(user);
 			response.setStatus(CommanConstants.SUCCESS);
@@ -104,10 +105,21 @@ public class UserServiceImpl implements UserService {
 	public User findbyEmailId(String user) {
 		return userRepository.findbyEmailId(user);
 	}
+	public User findUserById(Long userId) {
+		Optional<User> userOptional=userRepository.findById(userId);
+		if(userOptional.isPresent())
+		{
+			return userOptional.get();
+		}
+		else
+		{
+			return  null;
+		}
+	}
 
 	public ResponseEntity<Response> signin(UserDTO authenticationRequest) throws Exception 
 	{
-		authenticate(authenticationRequest.getEmail(), Util.decode(authenticationRequest.getPassword()));
+		authenticate(authenticationRequest.getEmail(),authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
@@ -191,6 +203,11 @@ public class UserServiceImpl implements UserService {
 			response.setMessage(CommanConstants.MSG_FAIED);
 			return ResponseEntity.ok(response);
 		}
+	}
+	
+	public User saveOrUpdateUser(User user)
+	{
+		return userRepository.saveAndFlush(user);
 	}
 	
 }

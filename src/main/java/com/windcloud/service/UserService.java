@@ -13,5 +13,7 @@ public interface UserService {
 	public ResponseEntity<Response> signin(UserDTO authenticationRequest) throws Exception;
 	public ResponseEntity<Response> forgotPassword(String emailId ) throws Exception;
 	ResponseEntity<?> updatePassword(String email, String confirmPassword, String token);
+	public User findUserById(Long userId);
+	public User saveOrUpdateUser(User user);
 
 }

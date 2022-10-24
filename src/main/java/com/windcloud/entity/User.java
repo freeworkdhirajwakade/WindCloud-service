@@ -81,8 +81,8 @@ public class User implements UserDetails{
 	@Column(name = "IS_PHONE_VERIFIED")
 	private Boolean isPhoneVerified;
 	
-	@Column(name="POINTS")
-	private BigDecimal points; 
+	@Column(name="STORE_POINTS")
+	private BigDecimal storePoints; 
 	
 	@CreationTimestamp
     private LocalDateTime createDateTime;
@@ -148,9 +148,9 @@ public class User implements UserDetails{
 	    {
 	    	setIsPhoneVerified(false);
 	    }
-	    if (getPoints() == null )
+	    if (getStorePoints() == null )
 	    {
-	    	setPoints(new BigDecimal(0.0));
+	    	setStorePoints(new BigDecimal(0.0));
 	    }
 	}
 	

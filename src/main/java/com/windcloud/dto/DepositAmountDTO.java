@@ -2,6 +2,8 @@ package com.windcloud.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.windcloud.entity.TransactionType;
 import com.windcloud.entity.User;
 
@@ -16,9 +18,15 @@ import lombok.Setter;
 @Setter
 public class DepositAmountDTO 
 {
+	@NotEmpty
 	private User user;
 	
+	@NotEmpty
+	private User creator;
+	
+	@NotEmpty
 	private BigDecimal amount;
 	
-	private TransactionType tranType;
+	@NotEmpty
+	private TransactionType transactionType;
 }

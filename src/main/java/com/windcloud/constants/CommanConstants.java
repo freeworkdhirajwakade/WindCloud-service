@@ -26,4 +26,9 @@ public class CommanConstants
 	public static final String INVALID_URL = "Invalid URL";
 	public static final String FORGOT_PASS_LINK_EXPIRED = "Forgot Password Link has Expired";
 	public static final String ENTER_VALID_USERNAME_PASS = "Please Enter Valid Username and Password";
+	public static final String USER_DETAILS_EMPTY = "User Details Should Not Be Empty";
+	public static final String CREATOR_EMPTY = "Creator Should Not Be Empty";
+	public static final String TRANSAC_TYPE_SHOULD_NOT_EMPTY = "Transaction Type Should not be Empty";
+	public static final String CREATOR_INVALID = "Invalid Creator";
+	public static final String TRX_STATUS_CREATED = "Created";
 }

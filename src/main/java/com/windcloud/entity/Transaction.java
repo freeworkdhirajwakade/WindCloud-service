@@ -44,6 +44,10 @@ public class Transaction {
 	private User user;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "CREATOR_ID")
+	private User creator;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "TRAN_TYPE_ID")
 	private TransactionType tranType;
 	

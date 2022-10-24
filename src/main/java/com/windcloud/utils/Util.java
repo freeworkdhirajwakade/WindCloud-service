@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Random;
+import java.util.UUID;
 
 import com.windcloud.entity.User;
 
@@ -65,5 +66,11 @@ public class Util {
 	    Random rnd = new Random();
 	    int number = rnd.nextInt(9999);
 	    return String.format("%04d",number);
+	}
+	
+	public static String generateTransactionRef()
+	{
+		UUID uuid=UUID.randomUUID();
+		return uuid.toString();
 	}
 }

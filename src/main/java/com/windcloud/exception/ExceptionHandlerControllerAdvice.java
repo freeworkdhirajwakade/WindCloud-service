@@ -4,17 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.windcloud.config.Response;
 import com.windcloud.constants.CommanConstants;
 
 import io.jsonwebtoken.SignatureException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 
 	@SuppressWarnings("rawtypes")
@@ -29,6 +30,22 @@ public class ExceptionHandlerControllerAdvice {
 
 		return error;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	@ExceptionHandler(UsernameNotFoundException.class)
+	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+	public @ResponseBody Response handleResourceNotFound(final UsernameNotFoundException exception,
+			final HttpServletRequest request) {
+
+		Response<?>error=new Response<>();
+		error.setMessage(exception.getMessage());
+		error.setStatus(CommanConstants.FAILED);
+
+		return error;
+	}
+	
+	
+	
 	@SuppressWarnings("rawtypes")
 	@ExceptionHandler(SignatureException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
@@ -52,6 +69,7 @@ public class ExceptionHandlerControllerAdvice {
 		error.setStatus(CommanConstants.FAILED);
 		return error;
 	}
+	
 
 	@SuppressWarnings("rawtypes")
 	@ExceptionHandler(Exception.class)
