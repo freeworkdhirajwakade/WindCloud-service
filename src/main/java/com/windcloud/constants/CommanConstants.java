@@ -31,4 +31,5 @@ public class CommanConstants
 	public static final String TRANSAC_TYPE_SHOULD_NOT_EMPTY = "Transaction Type Should not be Empty";
 	public static final String CREATOR_INVALID = "Invalid Creator";
 	public static final String TRX_STATUS_CREATED = "Created";
+	public static final String MSG_SUCCESS_UPDATE = "Successfully Updated";
 }

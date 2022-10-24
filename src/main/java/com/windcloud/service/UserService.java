@@ -15,5 +15,6 @@ public interface UserService {
 	ResponseEntity<?> updatePassword(String email, String confirmPassword, String token);
 	public User findUserById(Long userId);
 	public User saveOrUpdateUser(User user);
+	public ResponseEntity<?> updateUser(UserDTO userDto);
 
 }

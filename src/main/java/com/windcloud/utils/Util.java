@@ -15,7 +15,6 @@ public class Util {
 	public static User mergeUsers(User first, User second){
         Class<?> clas = first.getClass();       
         Field[] fields1 = clas.getDeclaredFields();
-        System.out.println("fields1 size="+fields1.length);
         try {
             for (Field field : fields1) 
             {

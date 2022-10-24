@@ -48,5 +48,53 @@
 				"tranType":"BONUS",				
 				"description":"Bonus"				
 			}
-		]
+		],
+	"message_type":[
+			{
+				"msgTypeId":1,
+				"msgType":"toAdmin",			
+				"description":"to Admin"				
+			},
+			{
+				"msgTypeId":2,
+				"msgType":"fromAdmin",			
+				"description":"from Admin"				
+			},
+			{
+				"msgTypeId":3,
+				"msgType":"broadCast",			
+				"description":"broad Cast"				
+			},
+			{
+				"msgTypeId":4,
+				"msgType":"Bet",			
+				"description":"Bet"				
+			},
+			{
+				"msgTypeId":5,
+				"msgType":"UserCommand",			
+				"description":"User Command"				
+			}
+		],
+		"user_command_type":[
+			{
+				"userCommandId":1,
+				"userCommandType":"Top_Score",
+				"userCommandTypeChinise":"上分",		
+				"description":"Top Score"				
+			},
+			{
+				"userCommandId":2,
+				"userCommandType":"Stud",
+				"userCommandTypeChinise":"梭哈",			
+				"description":"Stud"				
+			},
+			{
+				"userCommandId":3,
+				"userCommandType":"Lower_Score",
+				"userCommandTypeChinise":"下分",			
+				"description":"Lower Score"				
+			}			
+		]	
+		
 }

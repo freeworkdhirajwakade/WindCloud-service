@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/superadmin")
+@RequestMapping("/admin")
 public class SuperAdminController {
 	
 	@GetMapping("/")
@@ -16,5 +16,7 @@ public class SuperAdminController {
 	{
 		return "WelCome in Lottery Appplication";
 	}
+	
+	
 	
 }

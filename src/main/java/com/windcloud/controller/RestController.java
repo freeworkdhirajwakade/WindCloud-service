@@ -35,8 +35,6 @@ public class RestController {
 	@Autowired
 	private UserService userService;
 	
-	
-	
 	@Autowired
 	private MailService mailService;
 	
@@ -73,6 +71,13 @@ public class RestController {
 	{
 		return userService.updatePassword(forgotpass.getEmail(),forgotpass.getConfirmPassword(),token);
 	}
+	
+	@RequestMapping(value = {"/user","/user/avatar"}, method = RequestMethod.PUT)
+	public ResponseEntity<?> updateUser(@RequestBody UserDTO userDto) throws Exception 
+	{
+		return userService.updateUser(userDto);
+	}
+	
 	
 }
 

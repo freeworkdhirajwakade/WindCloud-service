@@ -19,11 +19,15 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.FileCopyUtils;
 
 import com.windcloud.entity.BetType;
+import com.windcloud.entity.MessageType;
 import com.windcloud.entity.Roles;
 import com.windcloud.entity.TransactionType;
+import com.windcloud.entity.UserCommandType;
 import com.windcloud.repository.BetTypeRepository;
+import com.windcloud.repository.MessageTypeRepository;
 import com.windcloud.repository.RolesRepository;
-import com.windcloud.repository.TransactionTypeRepository; 
+import com.windcloud.repository.TransactionTypeRepository;
+import com.windcloud.repository.UserCommandTypeRepository; 
 @Configuration
 public class PreloadData implements CommandLineRunner
 {
@@ -44,6 +48,12 @@ public class PreloadData implements CommandLineRunner
 	 @Autowired
 	 private TransactionTypeRepository transactionTypeRepository;
 	 
+	 @Autowired
+	 private MessageTypeRepository messageTypeRepository;
+	 
+	 @Autowired
+	 private UserCommandTypeRepository userCommandTypeRepository;
+	 
 	@Override
 	public void run(String... args) throws Exception {
 		Resource resource = resourceLoader.getResource("classpath:data.json");
@@ -56,6 +66,8 @@ public class PreloadData implements CommandLineRunner
 			        insertRole(data);
 			        insertBetType(data);
 			        insertTransactionType(data);
+			        insertMessageType(data);
+			        insertUserCommandType(data);
 		        }
 		    } catch (IOException e) {
 		      LOGGER.error("IOException", e);
@@ -159,5 +171,72 @@ public class PreloadData implements CommandLineRunner
         	}
         }
 		LOGGER.info("******Transaction Type Insertion Ended*****");
+	}
+	
+	public void insertMessageType(String data)
+	{
+		LOGGER.info("******Message Type Insertion Started*****");
+		 JSONObject json= new JSONObject(data);
+	     JSONArray msgTypeJSON=json.getJSONArray("message_type");
+	     List<MessageType>msgTypeList=messageTypeRepository.findAll();
+	     
+		for(int i=0;i<msgTypeJSON.length();i++)
+        {
+        	JSONObject messTypeJson=msgTypeJSON.getJSONObject(i);
+        	MessageType msgType=null;
+        	for(MessageType msTy:msgTypeList)
+        	{
+        		if(msTy.getMsgType().equals(messTypeJson.get("msgType")))
+	        	{
+        			msgType=msTy;
+		        	break;
+	        	}
+        	}
+        	
+        	if(msgType==null)
+        	{
+        		MessageType messageType=new MessageType();
+        		messageType.setMsgType(messTypeJson.getString("msgType"));
+        		messageType.setMsgTypeId(messTypeJson.getLong("msgTypeId"));
+        		messageType.setDescription(messTypeJson.getString("description"));
+        		MessageType msgTypeSave=messageTypeRepository.save(messageType);
+		        LOGGER.info("Transaction Type Insert -> "+msgTypeSave.getMsgType());
+        	}
+        }
+		LOGGER.info("******Message Type Insertion Ended*****");
+	}
+	
+	public void insertUserCommandType(String data)
+	{
+		LOGGER.info("******User Command Type Insertion Started*****");
+		 JSONObject json= new JSONObject(data);
+	     JSONArray ucTypeJSON=json.getJSONArray("user_command_type");
+	     List<UserCommandType>uCTypeList=userCommandTypeRepository.findAll();
+	     
+		for(int i=0;i<ucTypeJSON.length();i++)
+        {
+        	JSONObject userCTypeJson=ucTypeJSON.getJSONObject(i);
+        	UserCommandType uc=null;
+        	for(UserCommandType ucTy:uCTypeList)
+        	{
+        		if(ucTy.getUserCommandType().equals(userCTypeJson.get("userCommandType")))
+	        	{
+        			uc=ucTy;
+		        	break;
+	        	}
+        	}
+        	
+        	if(uc==null)
+        	{
+        		UserCommandType userCType=new UserCommandType();
+        		userCType.setUserCommandType(userCTypeJson.getString("userCommandType"));
+        		userCType.setUserCommandId(userCTypeJson.getLong("userCommandId"));
+        		userCType.setDescription(userCTypeJson.getString("description"));
+        		userCType.setUserCommandTypeChinise(userCTypeJson.getString("userCommandTypeChinise"));
+        		UserCommandType ucTypeSave=userCommandTypeRepository.save(userCType);
+		        LOGGER.info("Transaction Type Insert -> "+ucTypeSave.getUserCommandType());
+        	}
+        }
+		LOGGER.info("******User Command Type Insertion Ended*****");
 	}
 }

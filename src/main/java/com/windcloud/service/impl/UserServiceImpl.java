@@ -151,6 +151,7 @@ public class UserServiceImpl implements UserService {
 		{
 			response.setStatus(CommanConstants.FAILED);
 			response.setMessage(CommanConstants.EMAIL_ID_NOT_EXIST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		else
 		{
@@ -159,8 +160,6 @@ public class UserServiceImpl implements UserService {
 			response.setMessage(CommanConstants.FORGOT_PASS_MSG);
 			return ResponseEntity.ok(response);
 		}
-		
-		return ResponseEntity.ok(response);
 		
 	}
 
@@ -208,6 +207,41 @@ public class UserServiceImpl implements UserService {
 	public User saveOrUpdateUser(User user)
 	{
 		return userRepository.saveAndFlush(user);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<?> updateUser(UserDTO userDto) {
+		Response<User> response = new Response<>();
+		if (userDto.getEmail().equals("") || userDto.getEmail() == null) {
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_EMPTY);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		User user = findbyEmailId(userDto.getEmail());
+		if(user==null)
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_ID_NOT_EXIST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		User userdt = modelMapper.map(userDto, User.class);
+		User userNew=Util.mergeUsers(userdt, user);
+		User  userSave=saveOrUpdateUser(userNew);
+		if(userSave!=null)
+		{
+			response.setData(userSave);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.MSG_SUCCESS_UPDATE);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		else
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.MSG_FAIED);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		
 	}
 	
 }
