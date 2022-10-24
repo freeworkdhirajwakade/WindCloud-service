@@ -1,0 +1,52 @@
+{
+	"roles":[{"id":1,"name":"USER"},{"id":2,"name":"SUPER_ADMIN"},{"id":3,"name":"ROOM_ADMIN"}],
+	
+	"bet_type":[
+			{
+				"betTypeId":1,
+				"betType":"DOUBLE-SIDE_PLATE",
+				"betTypeInChina":"两面盘",
+				"description":"Double-Sided Plate"				
+			},
+			{
+				"betTypeId":2,
+				"betType":"RANK_1-10",
+				"betTypeInChina":"排名1~10",
+				"description":"Rank 1~10"				
+			},
+			{
+				"betTypeId":3,
+				"betType":"CHAMPION_AND_RUNNER-UP_COMBINATION",
+				"betTypeInChina":"冠亚军 组合",
+				"description":"Champion and runner-up combination"				
+			}
+		],
+		
+	"transaction_type":[
+			{
+				"tranTypeId":1,
+				"tranType":"DEPOSIT",				
+				"description":"Deposit"				
+			},
+			{
+				"tranTypeId":2,
+				"tranType":"WITHDRAW",				
+				"description":"Withdraw"				
+			},
+			{
+				"tranTypeId":3,
+				"tranType":"REWARDS",				
+				"description":"Rewards"				
+			},
+			{
+				"tranTypeId":4,
+				"tranType":"BET",				
+				"description":"Bet"				
+			},
+			{
+				"tranTypeId":5,
+				"tranType":"BONUS",				
+				"description":"Bonus"				
+			}
+		]
+}

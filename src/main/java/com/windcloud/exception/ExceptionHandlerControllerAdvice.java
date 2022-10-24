@@ -3,6 +3,7 @@ package com.windcloud.exception;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,6 +39,17 @@ public class ExceptionHandlerControllerAdvice {
 		error.setMessage(CommanConstants.INVALID_TOKEN);
 		error.setStatus(CommanConstants.FAILED);
 
+		return error;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@ExceptionHandler(BadCredentialsException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public @ResponseBody Response handleException(final BadCredentialsException exception,
+			final HttpServletRequest request) {
+		Response<?>error=new Response<>();
+		error.setMessage(CommanConstants.ENTER_VALID_USERNAME_PASS);
+		error.setStatus(CommanConstants.FAILED);
 		return error;
 	}
 

@@ -52,8 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  http.csrf()
           .disable()
           .authorizeRequests()
-          .antMatchers("/rest/**","/home/**","/")
-          .permitAll().anyRequest()
+          .antMatchers("/rest/**","/home/**","/").permitAll()
+          .antMatchers("/superadmin").hasRole("SUPER_ADMIN")
+          .antMatchers("/roomadmin").hasRole("ROOM_ADMINISTRATOR")
+          .anyRequest()
           .authenticated().and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		  
 		  http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

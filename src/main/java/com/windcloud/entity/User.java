@@ -1,5 +1,6 @@
 package com.windcloud.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -80,6 +81,9 @@ public class User implements UserDetails{
 	@Column(name = "IS_PHONE_VERIFIED")
 	private Boolean isPhoneVerified;
 	
+	@Column(name="POINTS")
+	private BigDecimal points; 
+	
 	@CreationTimestamp
     private LocalDateTime createDateTime;
  
@@ -143,6 +147,10 @@ public class User implements UserDetails{
 	    if (getIsPhoneVerified() == null )
 	    {
 	    	setIsPhoneVerified(false);
+	    }
+	    if (getPoints() == null )
+	    {
+	    	setPoints(new BigDecimal(0.0));
 	    }
 	}
 	

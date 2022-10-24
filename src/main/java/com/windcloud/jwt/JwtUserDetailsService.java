@@ -16,13 +16,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private UserService userservice;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
+	{
 		com.windcloud.entity.User user=userservice.findbyEmailId(username);
 		if(user==null)
 		{
 			throw new UsernameNotFoundException("User not found");
 		}
 		return new User(username,user.getPassword(),user.getAuthorities());
-			
 	}
 }

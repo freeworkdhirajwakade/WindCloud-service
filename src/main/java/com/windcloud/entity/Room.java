@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="TBL_ROOM")
+@Table(name="TBL_ROOMS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,14 +28,14 @@ public class Room {
 	
 	@Id
 	@Column(name = "ROOM_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROM_SEQ")
-	@SequenceGenerator(name = "ROM_SEQ", sequenceName = "ROM_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROOM_SEQ")
+	@SequenceGenerator(name = "ROOM_SEQ", sequenceName = "ROOM_SEQ")
 	private Long roomId;
 	
 	@Column(name = "ROOM_NAME")
 	private String roomName;
 	
-	@Column(name = "DESC")
+	@Column(name = "DESCRIPTION")
 	private String description;
 	
 	@CreationTimestamp

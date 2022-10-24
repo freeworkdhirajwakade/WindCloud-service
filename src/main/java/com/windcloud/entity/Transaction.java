@@ -1,5 +1,6 @@
 package com.windcloud.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,9 @@ public class Transaction {
 	@SequenceGenerator(name = "TRAN_SEQ", sequenceName = "TRAN_SEQ")
 	private Long tranId;
 	
+	@Column(name = "TRAN_REF_NO",unique = true)
+	private String tranRefNo;
+	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_ID")
 	private User user;
@@ -44,7 +48,7 @@ public class Transaction {
 	private TransactionType tranType;
 	
 	@Column(name = "AMOUNT")
-	private Double amount;
+	private BigDecimal amount;
 	
 	@Column(name = "Fee")
 	private Double fee;

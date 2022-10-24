@@ -13,5 +13,20 @@
     "name": "windcloud.mail.from",
     "type": "java.lang.String",
     "description": "A description for 'windcloud.mail.from'"
+  },
+  {
+    "name": "spring.jpa.defer-datasource-initialization",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.defer-datasource-initialization'"
+  },
+  {
+    "name": "spring.sql.init.mode",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.sql.init.mode'"
+  },
+  {
+    "name": "wind.cloud.preload.data",
+    "type": "java.lang.String",
+    "description": "A description for 'wind.cloud.preload.data'"
   }
 ]}

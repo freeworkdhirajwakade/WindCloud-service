@@ -34,7 +34,11 @@ public class BetType {
 	@Column(name = "BET_TYPE")
 	private String betType;
 	
-	@Column(name = "DESC")
+	@Column(name = "BET_TYPE_CHINESE")
+	private String betTypeInChinese;
+	
+	
+	@Column(name = "DESCRIPTION")
 	private String description;
 	
 	@CreationTimestamp

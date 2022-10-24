@@ -25,4 +25,5 @@ public class CommanConstants
 	public static final String SUCCESS_FORGOTTED = "Successfully Forgoted  Password";
 	public static final String INVALID_URL = "Invalid URL";
 	public static final String FORGOT_PASS_LINK_EXPIRED = "Forgot Password Link has Expired";
+	public static final String ENTER_VALID_USERNAME_PASS = "Please Enter Valid Username and Password";
 }

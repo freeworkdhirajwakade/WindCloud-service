@@ -35,6 +35,9 @@ public class TransactionType
 	@Column(name = "TRAN_TYPE")
 	private String tranType;
 	
+	@Column(name = "TRAN_TYPE_DESC")
+	private String description;
+	
 	@CreationTimestamp
     private LocalDateTime createDateTime;
  

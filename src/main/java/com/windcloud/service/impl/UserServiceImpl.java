@@ -26,6 +26,8 @@ import com.windcloud.utils.Util;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 
 @Service
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private MailService mailService;
 
+	@Transactional
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ResponseEntity<Response> signupUser(UserDTO userDto) {
 		Response response = new Response<User>();
@@ -84,6 +87,7 @@ public class UserServiceImpl implements UserService {
 				});
 			}
 			user.setRoles(roles);
+			user.setPassword(Util.encodeValue(user.getPassword()));
 			user = userRepository.save(user);
 			response.setData(user);
 			response.setStatus(CommanConstants.SUCCESS);
@@ -103,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
 	public ResponseEntity<Response> signin(UserDTO authenticationRequest) throws Exception 
 	{
-		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
+		authenticate(authenticationRequest.getEmail(), Util.decode(authenticationRequest.getPassword()));
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
@@ -122,10 +126,11 @@ public class UserServiceImpl implements UserService {
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			throw new BadCredentialsException("INVALID_CREDENTIALS", e);			
 		}
 	}
 
+	@Transactional
 	public ResponseEntity<Response> forgotPassword(String emailId ) throws Exception 
 	{
 		Response<User> response = new Response<>();
@@ -148,6 +153,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<?> updatePassword(String email, String confirmPassword,String token) {
 		Response<User> response = new Response<>();
 		try 
@@ -161,7 +167,6 @@ public class UserServiceImpl implements UserService {
 			else
 			{
 				String tokenExpTime=Util.decode(token);
-				System.out.println("TOKEN DATE="+tokenExpTime);
 				LocalDateTime pastDate = LocalDateTime.parse(tokenExpTime);
 				boolean isBefore = LocalDateTime.now().isBefore(pastDate);
 				if(isBefore)

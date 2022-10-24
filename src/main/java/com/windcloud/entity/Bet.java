@@ -1,5 +1,6 @@
 package com.windcloud.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
@@ -47,7 +48,7 @@ public class Bet {
 	private String carNumber;
 	
 	@Column(name = "AMOUNT")
-	private Double amount;
+	private BigDecimal amount;
 	
 	@Column(name = "STATUS")
 	private String status;

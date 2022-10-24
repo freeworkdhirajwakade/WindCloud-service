@@ -1,5 +1,6 @@
 package com.windcloud.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +45,8 @@ public class UserDTO
 	private Boolean isMailVerified;
 	
 	private Boolean isPhoneVerified;
+	
+	private BigDecimal points;
     
     private Set<Roles> roles = new HashSet<>();
 }
