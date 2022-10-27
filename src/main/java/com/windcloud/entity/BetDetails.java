@@ -36,7 +36,7 @@ public class BetDetails
 	private Long betDetId;
 	
 	@Column(name = "ODDS")
-	private Long odds;
+	private Float odds;
 	
 	@Column(name = "COMMAND")
 	private String command;
@@ -45,7 +45,7 @@ public class BetDetails
 	private String status;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "ROOM_ID")
+	@JoinColumn(name = "ROOM_NO")
 	private Room room;
 	
 	@CreationTimestamp

@@ -27,13 +27,14 @@ import lombok.Setter;
 public class Room {
 	
 	@Id
-	@Column(name = "ROOM_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROOM_SEQ")
-	@SequenceGenerator(name = "ROOM_SEQ", sequenceName = "ROOM_SEQ")
-	private Long roomId;
+	@Column(name = "ROOM_NO")
+	//@GeneratedValue(strategy = GenerationType.)
+	//@SequenceGenerator(name = "ROOM_SEQ", sequenceName = "ROOM_SEQ")
+	private String roomNo;
 	
 	@Column(name = "ROOM_NAME")
 	private String roomName;
+	
 	
 	@Column(name = "DESCRIPTION")
 	private String description;

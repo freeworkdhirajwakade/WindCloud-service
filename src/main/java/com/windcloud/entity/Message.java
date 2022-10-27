@@ -49,6 +49,12 @@ public class Message {
 	@JoinColumn(name = "MSG_TYPE_ID")
 	private MessageType msgType;
 	
+	@Column(name="MSG_CONTENT")
+	private String content;
+	
+	@Column(name="STATUS")
+	private String status;
+	
 	@CreationTimestamp
     private LocalDateTime createDateTime;
  

@@ -1,14 +1,8 @@
 package com.windcloud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +13,8 @@ import com.windcloud.config.Response;
 import com.windcloud.constants.CommanConstants;
 import com.windcloud.dto.ForgotPasswordDTO;
 import com.windcloud.dto.UserDTO;
-import com.windcloud.entity.User;
-import com.windcloud.jwt.JwtTokenUtil;
-import com.windcloud.jwt.JwtUserDetailsService;
 import com.windcloud.mail.MailService;
 import com.windcloud.service.UserService;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/rest")
@@ -70,12 +60,6 @@ public class RestController {
 	public ResponseEntity<?> updatePassword(@RequestBody ForgotPasswordDTO forgotpass,@PathVariable String token) throws Exception 
 	{
 		return userService.updatePassword(forgotpass.getEmail(),forgotpass.getConfirmPassword(),token);
-	}
-	
-	@RequestMapping(value = {"/user","/user/avatar"}, method = RequestMethod.PUT)
-	public ResponseEntity<?> updateUser(@RequestBody UserDTO userDto) throws Exception 
-	{
-		return userService.updateUser(userDto);
 	}
 	
 	

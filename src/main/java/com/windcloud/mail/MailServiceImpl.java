@@ -14,6 +14,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.windcloud.config.CustomerProperties;
+import com.windcloud.entity.OneTimePassword;
+import com.windcloud.service.impl.OneTimePasswordService;
 import com.windcloud.utils.Util;
 
 @Service("mailService")

@@ -7,8 +7,13 @@ public class CommanConstants
 	public final static Integer SUCCESS=1;
 	public final static Integer FAILED=0;
 	//User Status
-	public final static String CRAETED="Created";
-	public final static String APPROVED="Approved";
+	public final static String USER_STATUS_CRAETED="Created";
+	public final static String USER_STATUS_APPROVED="Approved";
+	
+	//Transaction Status
+	public static final String TRX_STATUS_APPROVED = "Approved";
+	public static final String TRX_STATUS_CREATED = "Created";
+	
 	
 	//Response Message
 	public final static String MSG_SUCCESS_SAVE="Successfully Saved";
@@ -30,6 +35,14 @@ public class CommanConstants
 	public static final String CREATOR_EMPTY = "Creator Should Not Be Empty";
 	public static final String TRANSAC_TYPE_SHOULD_NOT_EMPTY = "Transaction Type Should not be Empty";
 	public static final String CREATOR_INVALID = "Invalid Creator";
-	public static final String TRX_STATUS_CREATED = "Created";
+	
 	public static final String MSG_SUCCESS_UPDATE = "Successfully Updated";
+	public static final String INVALID_TRANSAC_REF = "Invalid Transaction reference No";
+	public static final String TRANSACTION_APPROVEED = "Transactino Approved Successfully";
+	public static final String INEFFICIENT_AMOUNT = "Infficient Amount in your account";
+	public static final String SUCCESS_DATA_FOUND = "Successfully Data found";
+	public static final String ROOM_NO_GENERATOR = "RM";
+	public static final String ROOM_NAME_EMPTY = "Room name Should not be empty";
+	public static final String INVALID_ROOM_NO = "Invalid Room No";
+	public static final String INVALID_USER_NO = "Invalid User No";
 }

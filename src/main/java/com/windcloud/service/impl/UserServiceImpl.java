@@ -1,5 +1,12 @@
 package com.windcloud.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,24 +19,19 @@ import org.springframework.stereotype.Service;
 
 import com.windcloud.config.Response;
 import com.windcloud.constants.CommanConstants;
+import com.windcloud.dto.MessageDTO;
 import com.windcloud.dto.UserDTO;
+import com.windcloud.entity.Message;
 import com.windcloud.entity.Roles;
 import com.windcloud.entity.User;
 import com.windcloud.jwt.JwtTokenUtil;
 import com.windcloud.jwt.JwtUserDetailsService;
 import com.windcloud.mail.MailService;
+import com.windcloud.repository.MessageRepository;
 import com.windcloud.repository.RolesRepository;
 import com.windcloud.repository.UserRepository;
 import com.windcloud.service.UserService;
 import com.windcloud.utils.Util;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.modelmapper.ModelMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,6 +56,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private MessageRepository messageRepository;
 
 	@Transactional
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -74,7 +79,7 @@ public class UserServiceImpl implements UserService {
 		}
 		try {
 			User user = modelMapper.map(userDto, User.class);
-			user.setStatus(CommanConstants.CRAETED);
+			user.setStatus(CommanConstants.USER_STATUS_CRAETED);
 			HashSet<Roles> roles = new HashSet<>();
 			if(user.getRoles()==null||user.getRoles().size()<0) 
 			{
@@ -104,6 +109,9 @@ public class UserServiceImpl implements UserService {
 
 	public User findbyEmailId(String user) {
 		return userRepository.findbyEmailId(user);
+	}
+	public User findbyEmailIdAndStatus(String email,String status) {
+		return userRepository.findbyEmailIdAndStatus(email,status);
 	}
 	public User findUserById(Long userId) {
 		Optional<User> userOptional=userRepository.findById(userId);
@@ -241,7 +249,74 @@ public class UserServiceImpl implements UserService {
 			response.setMessage(CommanConstants.MSG_FAIED);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
+	}
+
+	@Override
+	public ResponseEntity<?> sendMessage(MessageDTO messageDTO) {
 		
+		Message message = modelMapper.map(messageDTO, Message.class);
+		messageRepository.save(message);
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<?> getUserByEmailId(String emailId) {
+		Response<User> response = new Response<User>();
+		if (emailId.equals("") ||emailId == null) {
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_EMPTY);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		User user = findbyEmailId(emailId);
+		if(user==null)
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_ID_NOT_EXIST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		else
+		{
+			response.setData(user);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		
+	}
+
+	@Override
+	public ResponseEntity<?> approve_user(String emailId) {
+		Response<User> response = new Response<User>();
+		if (emailId.equals("") ||emailId == null) {
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_EMPTY);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		User user = findbyEmailId(emailId);
+		if(user==null)
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.EMAIL_ID_NOT_EXIST);
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		}
+		else
+		{
+			user.setStatus(CommanConstants.USER_STATUS_APPROVED);
+			User userSve=userRepository.saveAndFlush(user);
+			if(userSve==null)
+			{
+				response.setStatus(CommanConstants.FAILED);
+				response.setMessage(CommanConstants.MSG_FAIED);
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+			else
+			{
+				response.setData(userSve);
+				response.setStatus(CommanConstants.SUCCESS);
+				response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
+				return new ResponseEntity<>(response, HttpStatus.OK);
+			}
+		}
 	}
 	
 }
