@@ -40,6 +40,13 @@ public class RoomAdminController {
 	{
 		return userService.approve_user(emailId);
 	}
+	
+	@RequestMapping(value = {"/add_user_room"}, method = RequestMethod.POST)
+	public ResponseEntity<?> add_user_room(@PathVariable String emailId) throws Exception 
+	{
+		return userService.approve_user(emailId);
+	}
 
+	
 
 }

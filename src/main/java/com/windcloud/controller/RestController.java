@@ -36,7 +36,7 @@ public class RestController {
 	}
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ResponseEntity<Response> signin(@RequestBody UserDTO authenticationRequest) throws Exception {
+	public ResponseEntity<?> signin(@RequestBody UserDTO authenticationRequest) throws Exception {
 
 		return userService.signin(authenticationRequest);
 	}

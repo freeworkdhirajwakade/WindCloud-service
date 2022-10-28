@@ -2,6 +2,7 @@ package com.windcloud.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -316,6 +317,26 @@ public class UserServiceImpl implements UserService {
 				response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			}
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> getAllUser() {
+		Response<List<User>> response = new Response<List<User>>();
+		List<User>userList=userRepository.findAll();
+		if(userList!=null&&userList.size()>0)
+		{
+			response.setData(userList);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+			
+		}
+		else
+		{
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.DATA_NOT_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 	}
 	

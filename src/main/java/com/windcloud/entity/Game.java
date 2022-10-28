@@ -3,14 +3,11 @@ package com.windcloud.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,38 +20,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="TBL_BET")
+@Table(name="TBL_GAME")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Bet {
+public class Game {
 	
 	@Id
-	@Column(name = "BET_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BET_SEQ")
-	@SequenceGenerator(name = "BET_SEQ", sequenceName = "BET_SEQ")
-	private Long betTypeId;
+	@Column(name = "GAME_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAME_SEQ")
+	@SequenceGenerator(name = "GAME_SEQ", sequenceName = "GAME_SEQ")
+	private Long gameId;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "USER_ID")
-	private User user;
+	@Column(name="GAME_NAME")
+	private String gameName;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "BET_DET_ID")
-	private BetDetails betDetails;
+	@Column(name="IS_GAME_OPEN")
+	private Boolean isGameOpen;
 	
-	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name = "BET_TYPE_ID")
-	private BetType betType;
+	@Column(name="OPEN_TIME")
+	private Long openTime;
 	
-	@Column(name = "CAR_NO")
-	private String carNumber;
+	@Column(name="CLOSE_TIME")
+	private Long closeTime;
 	
-	@Column(name = "AMOUNT")
-	private BigDecimal amount;
+	@Column(name="SCHEDULER_TASK_STATUS")
+	private Boolean schedulerTaskStatus;
 	
-	@Column(name = "STATUS")
+	@Column(name="BETTING_LIMIT")
+	private BigDecimal bettingLimit;
+	
+	@Column(name="IS_CANCEL_ALLOW")
+	private Boolean isCancellationAllow;
+	
+	@Column(name="STATUS")
 	private String status;
 	
 	@CreationTimestamp
@@ -62,5 +62,6 @@ public class Bet {
  
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
+	
 
 }

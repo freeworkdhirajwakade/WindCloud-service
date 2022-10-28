@@ -76,24 +76,54 @@
 				"description":"User Command"				
 			}
 		],
-		"user_command_type":[
+		"command_names":[
 			{
-				"userCommandId":1,
-				"userCommandType":"Top_Score",
-				"userCommandTypeChinise":"上分",		
+				"commandId":1,
+				"commandName":"Top_Score",
+				"commandNameChinise":"上分",		
 				"description":"Top Score"				
 			},
 			{
-				"userCommandId":2,
-				"userCommandType":"Stud",
-				"userCommandTypeChinise":"梭哈",			
+				"commandId":2,
+				"commandName":"Stud",
+				"commandNameChinise":"梭哈",			
 				"description":"Stud"				
 			},
 			{
-				"userCommandId":3,
-				"userCommandType":"Lower_Score",
-				"userCommandTypeChinise":"下分",			
+				"commandId":3,
+				"commandName":"Lower_Score",
+				"commandNameChinise":"下分",			
 				"description":"Lower Score"				
+			},
+			{
+				"commandId":4,
+				"commandName":"Big",
+				"commandNameChinise":"大",			
+				"description":"Big"				
+			},
+			{
+				"commandId":5,
+				"commandName":"Small",
+				"commandNameChinise":"小",			
+				"description":"Small"				
+			},
+			{
+				"commandId":6,
+				"commandName":"One",
+				"commandNameChinise":"单",			
+				"description":"One"				
+			},
+			{
+				"commandId":7,
+				"commandName":"Pair",
+				"commandNameChinise":"双",			
+				"description":"Pair"				
+			},
+			{
+				"commandId":8,
+				"commandName":"Dragon",
+				"commandNameChinise":"龙",			
+				"description":"Dragon"				
 			}			
 		]	
 		

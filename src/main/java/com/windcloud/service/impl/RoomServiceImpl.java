@@ -1,5 +1,6 @@
 package com.windcloud.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.windcloud.config.Response;
 import com.windcloud.constants.CommanConstants;
 import com.windcloud.dto.RoomDTO;
+import com.windcloud.entity.Game;
 import com.windcloud.entity.Room;
 import com.windcloud.repository.RoomRepository;
 import com.windcloud.service.RoomService;
@@ -81,6 +83,27 @@ public class RoomServiceImpl implements RoomService
 		String roomNo=CommanConstants.ROOM_NO_GENERATOR+roomRepository.findCount()+1;
 		rm.setRoomNo(roomNo);
 		return roomRepository.save(rm);
+	}
+	
+	@Override
+	public ResponseEntity<?> getAllRoom() 
+	{
+		
+		Response<List<Room>> response = new Response<List<Room>>();
+		List<Room>gameList=roomRepository.findAll();
+		if(gameList!=null&&gameList.size()>0)
+		{
+			response.setData(gameList);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
+			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
+		}
+		else
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.DATA_NOT_FOUND);
+			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
+		}
 	}
 	
 }

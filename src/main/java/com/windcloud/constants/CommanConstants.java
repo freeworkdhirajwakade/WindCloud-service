@@ -45,4 +45,16 @@ public class CommanConstants
 	public static final String ROOM_NAME_EMPTY = "Room name Should not be empty";
 	public static final String INVALID_ROOM_NO = "Invalid Room No";
 	public static final String INVALID_USER_NO = "Invalid User No";
+	public static final String BET_TYPE_EMPTY = "Bet Type Should not be empty";
+	public static final String ROOM_NO_EMPTY = "Room should not be empty";
+	public static final String CAR_NO_EMPTY = "Car number should not be empty";
+	public static final String BET_AMOUNT_EMPTY = "Bet Amount Should Not empty or Zero";
+	public static final String INVALID_BET_DETAILS = "Invalid Bet Details Id";
+	public static final String DATA_NOT_FOUND = "Data Not Found";
+	public static final String GAME_NAME_EMPTY = "Game Name Should Not Empty";
+	public static final String BETTING_LIMIT_EMPTY = "Betting Limit Should Not be Empty";
+	public static final String CLOSE_TIME_EMPTY = "Close Time should not be Empty";
+	public static final String OPEN_TIME_EMPTY = "Open Time should not be Empty";
+	public static final String GAME_STATUS_ACTIVE ="Active";
+	public static final Boolean GAME_SCH_STATUS_ACTIVE = true;
 }

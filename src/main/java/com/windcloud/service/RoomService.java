@@ -9,5 +9,6 @@ public interface RoomService {
 	public ResponseEntity<?> createRoom(RoomDTO roomDTO);
 
 	public ResponseEntity<?> getRoom(String roomNo);
+	public ResponseEntity<?> getAllRoom();
 
 }

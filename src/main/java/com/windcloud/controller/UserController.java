@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.windcloud.dto.BetDTO;
 import com.windcloud.dto.DepositAmountDTO;
 import com.windcloud.dto.MessageDTO;
 import com.windcloud.dto.UserDTO;
 import com.windcloud.dto.WithdrowRequestDTO;
+import com.windcloud.service.BetDetailsService;
 import com.windcloud.service.TransactionService;
 import com.windcloud.service.UserService;
 
@@ -19,6 +21,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userServices;
+	
+	@Autowired
+	private BetDetailsService betDetailService;
 	
 	@Autowired
 	private TransactionService transactionService;
@@ -51,6 +56,12 @@ public class UserController {
 	public ResponseEntity<?>deposit(@RequestBody DepositAmountDTO depositAmount)
 	{
 		return transactionService.depositAmountRequest(depositAmount);
+	}
+	
+	@RequestMapping(value = "/user/put_bet", method = RequestMethod.POST)	
+	public ResponseEntity<?>put_bet(@RequestBody BetDTO betDTO)
+	{
+		return betDetailService.putBet(betDTO);
 	}
 
 }

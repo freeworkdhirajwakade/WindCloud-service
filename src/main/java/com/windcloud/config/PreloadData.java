@@ -13,21 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.FileCopyUtils;
 
 import com.windcloud.entity.BetType;
+import com.windcloud.entity.Command;
 import com.windcloud.entity.MessageType;
 import com.windcloud.entity.Roles;
 import com.windcloud.entity.TransactionType;
-import com.windcloud.entity.UserCommandType;
 import com.windcloud.repository.BetTypeRepository;
+import com.windcloud.repository.CommandRepository;
 import com.windcloud.repository.MessageTypeRepository;
 import com.windcloud.repository.RolesRepository;
-import com.windcloud.repository.TransactionTypeRepository;
-import com.windcloud.repository.UserCommandTypeRepository; 
+import com.windcloud.repository.TransactionTypeRepository; 
 @Configuration
 public class PreloadData implements CommandLineRunner
 {
@@ -52,7 +51,7 @@ public class PreloadData implements CommandLineRunner
 	 private MessageTypeRepository messageTypeRepository;
 	 
 	 @Autowired
-	 private UserCommandTypeRepository userCommandTypeRepository;
+	 private CommandRepository commandRepository;
 	 
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,7 +66,7 @@ public class PreloadData implements CommandLineRunner
 			        insertBetType(data);
 			        insertTransactionType(data);
 			        insertMessageType(data);
-			        insertUserCommandType(data);
+			        insertCommandType(data);
 		        }
 		    } catch (IOException e) {
 		      LOGGER.error("IOException", e);
@@ -206,20 +205,20 @@ public class PreloadData implements CommandLineRunner
 		LOGGER.info("******Message Type Insertion Ended*****");
 	}
 	
-	public void insertUserCommandType(String data)
+	public void insertCommandType(String data)
 	{
 		LOGGER.info("******User Command Type Insertion Started*****");
 		 JSONObject json= new JSONObject(data);
-	     JSONArray ucTypeJSON=json.getJSONArray("user_command_type");
-	     List<UserCommandType>uCTypeList=userCommandTypeRepository.findAll();
+	     JSONArray ucTypeJSON=json.getJSONArray("command_names");
+	     List<Command>uCTypeList=commandRepository.findAll();
 	     
 		for(int i=0;i<ucTypeJSON.length();i++)
         {
         	JSONObject userCTypeJson=ucTypeJSON.getJSONObject(i);
-        	UserCommandType uc=null;
-        	for(UserCommandType ucTy:uCTypeList)
+        	Command uc=null;
+        	for(Command ucTy:uCTypeList)
         	{
-        		if(ucTy.getUserCommandType().equals(userCTypeJson.get("userCommandType")))
+        		if(ucTy.getCommandName().equals(userCTypeJson.get("commandName")))
 	        	{
         			uc=ucTy;
 		        	break;
@@ -228,13 +227,13 @@ public class PreloadData implements CommandLineRunner
         	
         	if(uc==null)
         	{
-        		UserCommandType userCType=new UserCommandType();
-        		userCType.setUserCommandType(userCTypeJson.getString("userCommandType"));
-        		userCType.setUserCommandId(userCTypeJson.getLong("userCommandId"));
+        		Command userCType=new Command();
+        		userCType.setCommandName(userCTypeJson.getString("commandName"));
+        		userCType.setCommandId(userCTypeJson.getLong("commandId"));
         		userCType.setDescription(userCTypeJson.getString("description"));
-        		userCType.setUserCommandTypeChinise(userCTypeJson.getString("userCommandTypeChinise"));
-        		UserCommandType ucTypeSave=userCommandTypeRepository.save(userCType);
-		        LOGGER.info("Transaction Type Insert -> "+ucTypeSave.getUserCommandType());
+        		userCType.setCommandNameChinise(userCTypeJson.getString("commandNameChinise"));
+        		Command ucTypeSave=commandRepository.save(userCType);
+		        LOGGER.info("Transaction Type Insert -> "+ucTypeSave.getCommandName());
         	}
         }
 		LOGGER.info("******User Command Type Insertion Ended*****");

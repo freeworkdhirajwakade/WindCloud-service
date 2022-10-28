@@ -1,14 +1,19 @@
 package com.windcloud.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -38,8 +43,21 @@ public class BetDetails
 	@Column(name = "ODDS")
 	private Float odds;
 	
-	@Column(name = "COMMAND")
-	private String command;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "TBL_BETDETAILS_BET",
+        joinColumns = @JoinColumn(name = "BET_DET_ID"),
+        inverseJoinColumns = @JoinColumn(name = "BET_ID")
+    )
+    private Set<Bet> bets = new HashSet<>(); 
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "COMND_ID")
+	private Command commonds;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "BET_TYPE_ID")
+	private BetType betType;
 	
 	@Column(name = "STATUS")
 	private String status;
@@ -53,7 +71,5 @@ public class BetDetails
  
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
-    
-    
 	
 }
