@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		  http.csrf()
           .disable()
           .authorizeRequests()
-          .antMatchers("/roomadmin/**","/superadmin/**","/rest/**","/home/**","/").permitAll()
+          .antMatchers("/roomadmin/**","/superadmin/**","/rest/**","/home/**","/**","/webjars/**").permitAll()
           //.antMatchers("/superadmin").hasRole("SUPER_ADMIN")
          // .antMatchers("/roomadmin").hasRole("ROOM_ADMIN")
           .anyRequest()

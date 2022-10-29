@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
-import com.windcloud.socket.Greetings;
-import com.windcloud.socket.HelloMessage;
-
 @Controller
 public class HomeController 
 {
@@ -26,15 +23,8 @@ public class HomeController
     {
     	 return "home"; 
     }
-    @MessageMapping("/hello")
-    @SendTo("/topic/greeting")
-    public Greetings sayHello(HelloMessage mesage)
-    {
-    	return new Greetings("Hello , "+HtmlUtils.htmlEscape(mesage.getName()));
-    }
     
-    
-    @GetMapping("/home/chat")
+    @GetMapping("/chat")
     public String chat() 
     {
     	 return "chat"; 
