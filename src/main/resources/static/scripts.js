@@ -29,11 +29,11 @@ function connect() {
         console.log('Connected: ' + frame);
         updateNotificationDisplay();
         stompClient.subscribe('/topic/messages', function (message) {
-            showMessage(JSON.parse(message.body).content);
+			showMessage(JSON.parse(message.body).content,JSON.parse(message.body).username);
         });
 
         stompClient.subscribe('/user/topic/private-messages', function (message) {
-            showMessage(JSON.parse(message.body).content);
+            showMessage(JSON.parse(message.body).content,JSON.parse(message.body).username);
         });
 
         stompClient.subscribe('/topic/global-notifications', function (message) {
@@ -48,16 +48,30 @@ function connect() {
     });
 }
 
-function showMessage(message) {
-    $("#messages").append("<tr><td>" + message + "</td></tr>");
+function showMessage(message,name) {
+	$("#message-chat-div").addClass("open_div");
+	$("#message-chat-div").removeClass("close_div");
+	
+	var nameLocalStore=localStorage.getItem("username");
+	if(nameLocalStore==name)
+	{
+		 $("#messages-body").append("<tr><td style='width:30%'>You</td><td style='width:70%'>" + message + "</td></tr>");
+	}
+	else
+	{
+		$("#messages-body").append("<tr><td style='width:30%'>"+name+"</td><td style='width:70%'>" + message + "</td></tr>");
+	}
+	
+   
 }
 
 function sendMessage() {
 	
-	var url=getBaseUrl();
-	//alert(url);
-    console.log("sending message");
-    stompClient.send("/ws/message", {}, JSON.stringify({'messageContent': $("#message").val()}));
+    var name=localStorage.getItem("username");
+    
+    $("#your-name").html(name);
+    stompClient.send("/ws/message", {}, JSON.stringify({'content': $("#message").val(),'username':name}));
+    $("#message").val("");
 }
 
 function sendPrivateMessage() {

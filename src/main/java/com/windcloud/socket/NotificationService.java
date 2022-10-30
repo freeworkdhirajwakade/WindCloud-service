@@ -15,13 +15,13 @@ public class NotificationService {
     }
 
     public void sendGlobalNotification() {
-        ResponseMessage message = new ResponseMessage("Global Notification");
+        ResponseMessage message = new ResponseMessage("Global Notification","");
 
         messagingTemplate.convertAndSend("/topic/global-notifications", message);
     }
 
     public void sendPrivateNotification(final String userId) {
-        ResponseMessage message = new ResponseMessage("Private Notification");
+        ResponseMessage message = new ResponseMessage("Private Notification","");
 
         messagingTemplate.convertAndSendToUser(userId,"/topic/private-notifications", message);
     }

@@ -1,6 +1,5 @@
 package com.windcloud.socket;
 
-import com.windcloud.socket.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +14,12 @@ public class WSController {
 
     @PostMapping("/send-message")
     public void sendMessage(@RequestBody final Message message) {
-        service.notifyFrontend(message.getMessageContent());
+        service.notifyFrontend(message);
     }
-
+        
     @PostMapping("/send-private-message/{id}")
     public void sendPrivateMessage(@PathVariable final String id,
                                    @RequestBody final Message message) {
-        service.notifyUser(id, message.getMessageContent());
+        service.notifyUser(id, message.getContent());
     }
 }

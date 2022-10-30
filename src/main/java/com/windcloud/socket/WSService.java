@@ -17,15 +17,15 @@ public class WSService {
         this.notificationService = notificationService;
     }
 
-    public void notifyFrontend(final String message) {
-        ResponseMessage response = new ResponseMessage(message);
+    public void notifyFrontend(Message message) {
+        ResponseMessage response = new ResponseMessage(message.getContent(),message.getUsername());
         notificationService.sendGlobalNotification();
 
         messagingTemplate.convertAndSend("/topic/messages", response);
     }
 
     public void notifyUser(final String id, final String message) {
-        ResponseMessage response = new ResponseMessage(message);
+        ResponseMessage response = new ResponseMessage(message,"");
 
         notificationService.sendPrivateNotification(id);
         messagingTemplate.convertAndSendToUser(id, "/topic/private-messages", response);

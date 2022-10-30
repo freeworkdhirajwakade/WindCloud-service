@@ -12,7 +12,8 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 import com.sun.security.auth.UserPrincipal;
 
-public class UserHandshakeHandler extends DefaultHandshakeHandler {
+public class UserHandshakeHandler extends DefaultHandshakeHandler 
+{
     private final Logger LOG = LoggerFactory.getLogger(UserHandshakeHandler.class);
 
     @Override

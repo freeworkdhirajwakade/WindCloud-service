@@ -1,20 +1,13 @@
 package com.windcloud.socket;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseMessage {
     private String content;
-
-    public ResponseMessage() {
-    }
-
-    public ResponseMessage(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private String username;
 }

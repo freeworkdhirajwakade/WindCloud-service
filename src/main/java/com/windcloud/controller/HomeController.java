@@ -24,12 +24,6 @@ public class HomeController
     	 return "home"; 
     }
     
-    @GetMapping("/chat")
-    public String chat() 
-    {
-    	 return "chat"; 
-    }
-    
     @GetMapping("/home/setPassword/{email}/{token}")
     public ModelAndView updatePassword(@PathVariable String email,@PathVariable String token)
     {
