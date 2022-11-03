@@ -39,10 +39,10 @@ public class Room {
 	@Column(name = "DESCRIPTION")
 	private String description;
 	
-	@CreationTimestamp
-    private LocalDateTime createDateTime;
+	//@CreationTimestamp
+    private Long createDateTime;
  
-    @UpdateTimestamp
-    private LocalDateTime updateDateTime;
+    //@UpdateTimestamp
+    private Long updateDateTime;
 
 }

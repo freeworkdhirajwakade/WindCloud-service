@@ -26,9 +26,9 @@ public class BetDTO
 	
 	private BetDetailsDTO betDetailsDTO;
 	
-	private String carNumber;
+	private Integer carNumber;
 	
-	private BigDecimal amount;
+	private Double amount;
 	
 	private String status;
 }

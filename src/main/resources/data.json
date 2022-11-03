@@ -125,6 +125,58 @@
 				"commandNameChinise":"龙",			
 				"description":"Dragon"				
 			}			
-		]	
+		],
+		"rank_name":[
+			{
+				"rank_id":1,
+				"rank_name":"Champion",
+				"rank_chinise_name":"冠军"			
+			},
+			{
+				"rank_id":2,
+				"rank_name":"Runner_Up",
+				"rank_chinise_name":"亚军"			
+			},
+			{
+				"rank_id":3,
+				"rank_name":"3rd_Place",
+				"rank_chinise_name":"第三名"			
+			},
+			{
+				"rank_id":4,
+				"rank_name":"4th_Place",
+				"rank_chinise_name":"第四名"			
+			},
+			{
+				"rank_id":5,
+				"rank_name":"5th_Place",
+				"rank_chinise_name":"第五名"			
+			},
+			{
+				"rank_id":6,
+				"rank_name":"6th_Place",
+				"rank_chinise_name":"第六名"			
+			},
+			{
+				"rank_id":7,
+				"rank_name":"7th_Place",
+				"rank_chinise_name":"第七名"			
+			},
+			{
+				"rank_id":8,
+				"rank_name":"8th_Place",
+				"rank_chinise_name":"第八名"			
+			},
+			{
+				"rank_id":9,
+				"rank_name":"9th_Place",
+				"rank_chinise_name":"第九名"			
+			},
+			{
+				"rank_id":10,
+				"rank_name":"10th_Place",
+				"rank_chinise_name":"第十名"			
+			}	
+		]		
 		
 }

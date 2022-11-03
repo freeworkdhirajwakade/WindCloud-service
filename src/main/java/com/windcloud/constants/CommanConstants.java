@@ -15,6 +15,14 @@ public class CommanConstants
 	public static final String TRX_STATUS_CREATED = "Created";
 	
 	
+	//Scheduler time
+	
+	//5 min scheduler
+	public static final long GAME_CREATE_TIME_MIN = (long) (3*60*1000);
+	public static final long GAME_GENERATE_RESULT_TIME_MIN = (long) (2.5*60*1000);
+	public static final long GAME_FETCH_TIME_MIN = (long) (2*60*1000);
+	public static final long GAME_CREATE_INITIAL_TIME_MIN = (long) (1000);
+	
 	//Response Message
 	public final static String MSG_SUCCESS_SAVE="Successfully Saved";
 	public final static String MSG_FAIED="Failed...Try again";
@@ -57,4 +65,16 @@ public class CommanConstants
 	public static final String OPEN_TIME_EMPTY = "Open Time should not be Empty";
 	public static final String GAME_STATUS_ACTIVE ="Active";
 	public static final Boolean GAME_SCH_STATUS_ACTIVE = true;
+	public static final String GAME_NO_GENERATOR = "GM";
+	public static final String GAME_STATUS_CLOSED = "Closed";
+	public static final String BETS_EMPTY = "Bets should not be empty";
+	public static final String GAME_DETAILS_EMPTY = "Game Details should not be empty";
+	public static final String ROOM_DEAILS_EMPTY = "Room Details Not found";
+	public static final String GAME_CLOSED = "Game is ready closed";
+	public static final String BET_STATUS_CREATED = "Created";
+	public static final String INVALID_RANK_ID = "Invalid Rank Id";
+	public static final String BET_STATUS_WIN = "Win";
+	public static final String BET_STATUS_LOSS = "Loss";
+	public static final String BET_STATUS_COMPLETED = "Completed";
+	
 }

@@ -2,6 +2,7 @@ package com.windcloud.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Collection;
@@ -71,5 +72,53 @@ public class Util {
 	{
 		UUID uuid=UUID.randomUUID();
 		return uuid.toString();
+	}
+	
+	public static Long currentUnixTimeStamp()
+	{
+		Long unixTime = Instant.now().getEpochSecond();
+		return unixTime;
+	}
+	
+	public static int generateRandomNo()
+	{
+		int min=1,max=10;
+		return min + (int)(Math.random() * ((max - min) + 1));
+	}
+	
+	public static int[] generateRank() {
+		int[] arr = new int[10];
+
+		for (int i = 0; i < arr.length; i++) {
+			int n = generateRandomNo();
+			arr[i] = setElementInArr(arr, n);
+		}
+		return arr;
+	}
+	
+	public static int setElementInArr(int[] arr, int n)
+	{
+		if(isDuplicateElement(arr,n))
+		{
+			return setElementInArr(arr,generateRandomNo());
+		}
+		else
+		{
+			return n;
+		}
+	}
+	
+	public static boolean isDuplicateElement(int[] arr,int n)
+	{
+		boolean flg=false;
+		for(int j=0;j<arr.length;j++)
+		{
+			if(arr[j]==n)
+			{
+				flg=true;
+				break;
+			}
+		}
+		return flg;				
 	}
 }

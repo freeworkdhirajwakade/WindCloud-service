@@ -16,6 +16,7 @@ import com.windcloud.entity.Game;
 import com.windcloud.entity.Room;
 import com.windcloud.repository.RoomRepository;
 import com.windcloud.service.RoomService;
+import com.windcloud.utils.Util;
 
 @Service
 public class RoomServiceImpl implements RoomService
@@ -36,7 +37,9 @@ public class RoomServiceImpl implements RoomService
 			response.setMessage(CommanConstants.ROOM_NAME_EMPTY);
 			return new ResponseEntity<Response<?>>(response, HttpStatus.BAD_REQUEST);
 		}
-		Room room=modelMapper.map(roomDTO, Room.class);		
+		Room room=modelMapper.map(roomDTO, Room.class);
+		room.setCreateDateTime(Util.currentUnixTimeStamp());
+		room.setUpdateDateTime(Util.currentUnixTimeStamp());
 		Room rm=saveRoom(room);
 		if(rm!=null)
 		{
@@ -104,6 +107,12 @@ public class RoomServiceImpl implements RoomService
 			response.setMessage(CommanConstants.DATA_NOT_FOUND);
 			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
 		}
+	}
+
+	@Override
+	public Room findRoomByNo(String roomNo) {
+		Optional<Room> roomOtp=roomRepository.findById(roomNo);		
+		return roomOtp.isPresent()?roomOtp.get():null;
 	}
 	
 }

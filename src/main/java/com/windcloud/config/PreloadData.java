@@ -20,11 +20,13 @@ import org.springframework.util.FileCopyUtils;
 import com.windcloud.entity.BetType;
 import com.windcloud.entity.Command;
 import com.windcloud.entity.MessageType;
+import com.windcloud.entity.Ranks;
 import com.windcloud.entity.Roles;
 import com.windcloud.entity.TransactionType;
 import com.windcloud.repository.BetTypeRepository;
 import com.windcloud.repository.CommandRepository;
 import com.windcloud.repository.MessageTypeRepository;
+import com.windcloud.repository.RankRepository;
 import com.windcloud.repository.RolesRepository;
 import com.windcloud.repository.TransactionTypeRepository; 
 @Configuration
@@ -53,6 +55,9 @@ public class PreloadData implements CommandLineRunner
 	 @Autowired
 	 private CommandRepository commandRepository;
 	 
+	 @Autowired
+	 private RankRepository rankRepository;
+	 
 	@Override
 	public void run(String... args) throws Exception {
 		Resource resource = resourceLoader.getResource("classpath:data.json");
@@ -67,6 +72,7 @@ public class PreloadData implements CommandLineRunner
 			        insertTransactionType(data);
 			        insertMessageType(data);
 			        insertCommandType(data);
+			        insertRankName(data);
 		        }
 		    } catch (IOException e) {
 		      LOGGER.error("IOException", e);
@@ -238,4 +244,39 @@ public class PreloadData implements CommandLineRunner
         }
 		LOGGER.info("******User Command Type Insertion Ended*****");
 	}
+	
+	public void insertRankName(String data)
+	{
+		LOGGER.info("******Rank Insertion Started*****");
+		 JSONObject json= new JSONObject(data);
+	     JSONArray RankNameJSON=json.getJSONArray("rank_name");
+	     List<Ranks>rankList=rankRepository.findAll();
+	     
+		for(int i=0;i<RankNameJSON.length();i++)
+        {
+        	JSONObject rknameJson=RankNameJSON.getJSONObject(i);
+        	Ranks rk=null;
+        	for(Ranks rank:rankList)
+        	{
+        		if(rank.getRankId()==rknameJson.getLong("rank_id"))
+	        	{
+        			rk=rank;
+		        	break;
+	        	}
+        	}
+        	
+        	if(rk==null)
+        	{
+        		Ranks rkName=new Ranks();
+        		rkName.setRankId(rknameJson.getLong("rank_id"));
+        		rkName.setRankChiniseName(rknameJson.getString("rank_chinise_name"));
+        		rkName.setRankName(rknameJson.getString("rank_name"));
+        		Ranks rkSave=rankRepository.save(rkName);
+		        LOGGER.info("Rank Name Insert -> "+rkSave.getRankName());
+        	}
+        }
+		LOGGER.info("******Rank Insertion Ended*****");
+	}
+	
+	
 }

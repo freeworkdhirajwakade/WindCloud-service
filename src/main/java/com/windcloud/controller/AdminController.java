@@ -53,7 +53,7 @@ public class AdminController {
 		return transactionService.approveTransaction(approveDto);
 	}
 	@RequestMapping(value = "/create_room", method = RequestMethod.POST)	
-	public ResponseEntity<?>deposit(@RequestBody RoomDTO roomDTO)
+	public ResponseEntity<?>create_room(@RequestBody RoomDTO roomDTO)
 	{
 		return roomService.createRoom(roomDTO);
 	}
@@ -82,4 +82,6 @@ public class AdminController {
 	{
 		return gameService.getGame(gameId);
 	}
+	
+
 }

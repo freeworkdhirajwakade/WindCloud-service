@@ -14,12 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,21 +43,28 @@ public class BetDetails
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BET_D_SEQ")
 	@SequenceGenerator(name = "BET_D_SEQ", sequenceName = "BET_D_SEQ")
 	private Long betDetId;
-	
-	@Column(name = "ODDS")
-	private Float odds;
-	
+		
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "TBL_BETDETAILS_BET",
         joinColumns = @JoinColumn(name = "BET_DET_ID"),
         inverseJoinColumns = @JoinColumn(name = "BET_ID")
     )
+    @JsonManagedReference
     private Set<Bet> bets = new HashSet<>(); 
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "COMND_ID")
 	private Command commonds;
+	
+    @ManyToOne
+    @JoinColumn(name="GAME_ID", nullable=false)
+    @JsonBackReference
+	private Game game;
+    
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "USER_ID")
+    private User user;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "BET_TYPE_ID")

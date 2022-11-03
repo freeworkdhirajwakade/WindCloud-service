@@ -1,20 +1,13 @@
 package com.windcloud.dto;
 
-import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import com.windcloud.entity.Bet;
 import com.windcloud.entity.BetType;
 import com.windcloud.entity.Command;
+import com.windcloud.entity.Game;
 import com.windcloud.entity.Room;
+import com.windcloud.entity.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,13 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BetDetailsDTO 
 {
+
 	private Long betDetId;
 	
 	private Float odds;
 	
-    private Set<Bet> bets = new HashSet<>(); 
+	private User user;
+	
+    private Set<Bet> bets;
 	
 	private Command commonds;
+	
+	private Game game;
 	
 	private BetType betType;
 	

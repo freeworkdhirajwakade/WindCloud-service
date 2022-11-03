@@ -14,8 +14,10 @@ import com.windcloud.constants.CommanConstants;
 import com.windcloud.dto.GameDTO;
 import com.windcloud.entity.BetDetails;
 import com.windcloud.entity.Game;
+import com.windcloud.entity.Room;
 import com.windcloud.repository.GameRepository;
 import com.windcloud.service.GameService;
+import com.windcloud.utils.Util;
 
 @Service
 public class GameServiceImpl implements GameService
@@ -55,8 +57,10 @@ public class GameServiceImpl implements GameService
 		}
 		
 		Game game=modelMapper.map(gameDTO, Game.class);
-		game.setStatus(CommanConstants.GAME_STATUS_ACTIVE);
+		game.setStatus(CommanConstants.GAME_STATUS_CLOSED);
 		game.setSchedulerTaskStatus(CommanConstants.GAME_SCH_STATUS_ACTIVE);
+		//game.setCreateDateTime(Util.currentUnixTimeStamp());
+		//game.setUpdateDateTime(Util.currentUnixTimeStamp());
 		Game gameSave=saveUpdateGame(game);
 		if(gameSave!=null)
 		{
@@ -77,6 +81,37 @@ public class GameServiceImpl implements GameService
 	public Game saveUpdateGame(Game game)
 	{
 		return gameRepository.saveAndFlush(game);
+	}
+	
+	public List<Game>findActiveGame()
+	{
+		return gameRepository.findGameByStatus(CommanConstants.GAME_STATUS_ACTIVE);
+	}
+	public List<Game>findClosedGame()
+	{
+		return gameRepository.findGameByStatus(CommanConstants.GAME_STATUS_CLOSED);
+	}
+	
+	public Game createNewGame()
+	{
+		Game game=new Game();
+		game.setStatus(CommanConstants.GAME_STATUS_ACTIVE);
+		game.setSchedulerTaskStatus(CommanConstants.GAME_SCH_STATUS_ACTIVE);
+		game.setGameId(gameRepository.findCount()+1);
+		game.setGameName(genarateGameName());
+		game.setOpenTime(Util.currentUnixTimeStamp());
+		game.setDuration(3);
+		game.setCloseTime(Util.currentUnixTimeStamp()+(game.getDuration()*1000));
+		Game gameSave=saveUpdateGame(game);
+		
+		return gameSave;
+	}
+	
+	public String genarateGameName()
+	{
+		String gameId=CommanConstants.GAME_NO_GENERATOR+(gameRepository.findCount()+1);
+		return gameId;
+		
 	}
 
 	@Override
@@ -117,4 +152,48 @@ public class GameServiceImpl implements GameService
 			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
 		}
 	}
+
+
+	@Override
+	public List<Game> findGameActiveOpenTime() {
+		return gameRepository.findGameActiveOpenTime(Util.currentUnixTimeStamp()+(20*1000));
+	}
+	@Override
+	public void closeOpenGame()
+	{
+		for(Game gm:findActiveGame())
+		{
+			gm.setStatus(CommanConstants.GAME_STATUS_CLOSED);
+			gameRepository.saveAndFlush(gm);
+		}
+	}
+
+	@Override
+	public Game findGameById(Long gameId) {
+		Optional<Game> gameOPT=gameRepository.findById(gameId);
+		return gameOPT.isPresent()?gameOPT.get():null;
+	}
+
+	@Override
+	public ResponseEntity<?> getActiveGames() {
+		Response<List<Game>> response = new Response<List<Game>>();
+		List<Game>games=findActiveGame();
+		if(games!=null)
+		{
+			response.setData(games);
+			response.setStatus(CommanConstants.SUCCESS);
+			response.setMessage(CommanConstants.SUCCESS_DATA_FOUND);
+			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
+		}
+		else
+		{
+			response.setStatus(CommanConstants.FAILED);
+			response.setMessage(CommanConstants.DATA_NOT_FOUND);
+			return new ResponseEntity<Response<?>>(response, HttpStatus.OK);
+		}
+		
+	}
+
+	
+	
 }
